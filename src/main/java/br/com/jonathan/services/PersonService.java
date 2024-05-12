@@ -1,22 +1,22 @@
 package br.com.jonathan.services;
 
-import br.com.jonathan.entities.Person;
+import br.com.jonathan.data.vo.v1.PersonVO;
 
 import java.util.List;
 
 
 public interface PersonService {
 
-    List<Person> findAll();
+    List<PersonVO> findAll();
 
-    Person findById(Long id);
+    PersonVO findById(Long id);
 
-    Person create(Person person);
+    PersonVO create(PersonVO person);
 
-    Person update(Person person);
+    PersonVO update(PersonVO person);
 
     void delete(Long id);
 
-    Person mockPerson(int i);
+    PersonVO mockPerson(int i);
 }
 
