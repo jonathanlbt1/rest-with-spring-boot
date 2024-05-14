@@ -1,5 +1,6 @@
 package br.com.jonathan.services.impl;
 
+import br.com.jonathan.controllers.PersonController;
 import br.com.jonathan.data.vo.v1.PersonVO;
 import br.com.jonathan.data.vo.v2.PersonVOV2;
 import br.com.jonathan.exceptions.ResourceNotFoundException;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -29,20 +33,25 @@ public class PersonServiceImpl implements PersonService {
 
     public List<PersonVO> findAll() {
         logger.info("Finding all people!");
-        return personMapper.toPersonList(personRepository.findAll());
+        var voList = personMapper.toPersonList(personRepository.findAll());
+        voList.forEach(
+                p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+        return voList;
     }
 
     public PersonVO findById(Long id) {
         logger.info("Finding one person!");
         var entity = personRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(MESSAGE));
-        return personMapper.toPerson(entity);
+        var vo = personMapper.toPerson(entity);
+        return vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
     }
 
     public PersonVO create(PersonVO person) {
         logger.info("Creating one person!");
         var entity = personMapper.toPersonVO(person);
-        return personMapper.toPerson(personRepository.save(entity));
+        var vo = personMapper.toPerson(entity);
+        return vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
 
     }
 
@@ -55,13 +64,14 @@ public class PersonServiceImpl implements PersonService {
 
     public PersonVO update(PersonVO person) {
         logger.info("Updating one person!");
-        var personToUpdate = personRepository.findById(person.getId())
+        var personToUpdate = personRepository.findById(person.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException(MESSAGE));
         personToUpdate.setFirstName(person.getFirstName());
         personToUpdate.setLastName(person.getLastName());
         personToUpdate.setAddress(person.getAddress());
         personToUpdate.setGender(person.getGender());
-        return personMapper.toPerson(personRepository.save(personToUpdate));
+        var vo = personMapper.toPerson(personRepository.save(personToUpdate));
+        return vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
     }
 
     public void delete(Long id) {
