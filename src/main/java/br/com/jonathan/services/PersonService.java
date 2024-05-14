@@ -19,6 +19,5 @@ public interface PersonService {
 
     void delete(Long id);
 
-    PersonVO mockPerson(int i);
 }
 

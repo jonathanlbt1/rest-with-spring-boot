@@ -3,6 +3,7 @@ package br.com.jonathan.services.impl;
 import br.com.jonathan.controllers.PersonController;
 import br.com.jonathan.data.vo.v1.PersonVO;
 import br.com.jonathan.data.vo.v2.PersonVOV2;
+import br.com.jonathan.exceptions.RequiredObjectIsNullException;
 import br.com.jonathan.exceptions.ResourceNotFoundException;
 import br.com.jonathan.mapper.PersonMapper;
 import br.com.jonathan.repositories.PersonRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -22,7 +24,7 @@ public class PersonServiceImpl implements PersonService {
     private final Logger logger = Logger.getLogger(PersonServiceImpl.class.getName());
     private static final String MESSAGE = "Person not found";
 
-    private final PersonMapper personMapper;
+    PersonMapper personMapper;
     PersonRepository personRepository;
 
     @Autowired
@@ -48,6 +50,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     public PersonVO create(PersonVO person) {
+        if (Objects.isNull(person)) {
+            throw new RequiredObjectIsNullException();
+        }
         logger.info("Creating one person!");
         var entity = personMapper.toPersonVO(person);
         var vo = personMapper.toPerson(entity);
@@ -57,12 +62,18 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonVOV2 createV2(PersonVOV2 person) {
+        if (Objects.isNull(person)) {
+            throw new RequiredObjectIsNullException();
+        }
         logger.info("Creating one person with V2!");
         var entity = personMapper.toPersonVOV2(person);
         return personMapper.toPersonV2(personRepository.save(entity));
     }
 
     public PersonVO update(PersonVO person) {
+        if (Objects.isNull(person)) {
+            throw new RequiredObjectIsNullException();
+        }
         logger.info("Updating one person!");
         var personToUpdate = personRepository.findById(person.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException(MESSAGE));
@@ -79,15 +90,6 @@ public class PersonServiceImpl implements PersonService {
         var personToDelete = personRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(MESSAGE));
         personRepository.delete(personToDelete);
-    }
-
-    public PersonVO mockPerson(int i) {
-        PersonVO person = new PersonVO();
-        person.setFirstName("Person name " + i);
-        person.setLastName("Last name " + i);
-        person.setAddress("Some address in Brasil " + i);
-        person.setGender("Male");
-        return person;
     }
 
 }
