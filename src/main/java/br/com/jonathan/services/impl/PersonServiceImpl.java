@@ -1,6 +1,7 @@
 package br.com.jonathan.services.impl;
 
 import br.com.jonathan.data.vo.v1.PersonVO;
+import br.com.jonathan.data.vo.v2.PersonVOV2;
 import br.com.jonathan.exceptions.ResourceNotFoundException;
 import br.com.jonathan.mapper.PersonMapper;
 import br.com.jonathan.repositories.PersonRepository;
@@ -43,6 +44,13 @@ public class PersonServiceImpl implements PersonService {
         var entity = personMapper.toPersonVO(person);
         return personMapper.toPerson(personRepository.save(entity));
 
+    }
+
+    @Override
+    public PersonVOV2 createV2(PersonVOV2 person) {
+        logger.info("Creating one person with V2!");
+        var entity = personMapper.toPersonVOV2(person);
+        return personMapper.toPersonV2(personRepository.save(entity));
     }
 
     public PersonVO update(PersonVO person) {
