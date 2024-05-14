@@ -1,6 +1,6 @@
 package br.com.jonathan.controllers;
 
-import br.com.jonathan.data.vo.v1.PersonVO;
+import br.com.jonathan.data.vo.v1.PersonDTO;
 import br.com.jonathan.data.vo.v2.PersonVOV2;
 import br.com.jonathan.services.PersonService;
 import br.com.jonathan.util.MediaType;
@@ -37,13 +37,13 @@ public class PersonController {
                     @ApiResponse(responseCode = "200", description = "Persons found",
                             content = {
                             @Content(mediaType = MediaType.APPLICATION_JSON,
-                                    array = @ArraySchema(schema = @Schema(implementation = PersonVO.class))),
+                                    array = @ArraySchema(schema = @Schema(implementation = PersonDTO.class))),
                             }),
                     @ApiResponse(responseCode = "404", description = "Persons not found"),
                     @ApiResponse(responseCode = "400", description = "Bad Request"),
                     @ApiResponse(responseCode = "500", description = "Internal Server Error")
             })
-    public List<PersonVO> findAll() {
+    public List<PersonDTO> findAll() {
         return service.findAll();
     }
 
@@ -54,14 +54,14 @@ public class PersonController {
             tags = {"Person Endpoint"},
             responses = {
                     @ApiResponse(responseCode = "200", description = "Persons found",
-                            content = @Content(schema = @Schema(implementation = PersonVO.class))),
+                            content = @Content(schema = @Schema(implementation = PersonDTO.class))),
                     @ApiResponse(responseCode = "204", description = "No Content"),
                     @ApiResponse(responseCode = "400", description = "Bad Request"),
                     @ApiResponse(responseCode = "401", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Persons not found"),
                     @ApiResponse(responseCode = "500", description = "Internal Server Error")
             })
-    public PersonVO findById(@PathVariable(value = "id") Long id) {
+    public PersonDTO findById(@PathVariable(value = "id") Long id) {
         return service.findById(id);
     }
 
@@ -73,14 +73,14 @@ public class PersonController {
             tags = {"Person Endpoint"},
             responses = {
                     @ApiResponse(responseCode = "200", description = "Person created",
-                            content = @Content(schema = @Schema(implementation = PersonVO.class))),
+                            content = @Content(schema = @Schema(implementation = PersonDTO.class))),
                     @ApiResponse(responseCode = "204", description = "No Content"),
                     @ApiResponse(responseCode = "400", description = "Bad Request"),
                     @ApiResponse(responseCode = "401", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Persons not found"),
                     @ApiResponse(responseCode = "500", description = "Internal Server Error")
             })
-    public PersonVO create(@RequestBody PersonVO person) {
+    public PersonDTO create(@RequestBody PersonDTO person) {
         return service.create(person);
     }
 
@@ -99,14 +99,14 @@ public class PersonController {
             tags = {"Person Endpoint"},
             responses = {
                     @ApiResponse(responseCode = "200", description = "Person updated",
-                            content = @Content(schema = @Schema(implementation = PersonVO.class))),
+                            content = @Content(schema = @Schema(implementation = PersonDTO.class))),
                     @ApiResponse(responseCode = "204", description = "No Content"),
                     @ApiResponse(responseCode = "400", description = "Bad Request"),
                     @ApiResponse(responseCode = "401", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Persons not found"),
                     @ApiResponse(responseCode = "500", description = "Internal Server Error")
             })
-    public PersonVO update(@RequestBody PersonVO person) {
+    public PersonDTO update(@RequestBody PersonDTO person) {
         return service.update(person);
     }
 

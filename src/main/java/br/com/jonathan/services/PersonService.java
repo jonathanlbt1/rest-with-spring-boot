@@ -1,6 +1,6 @@
 package br.com.jonathan.services;
 
-import br.com.jonathan.data.vo.v1.PersonVO;
+import br.com.jonathan.data.vo.v1.PersonDTO;
 import br.com.jonathan.data.vo.v2.PersonVOV2;
 
 import java.util.List;
@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface PersonService {
 
-    List<PersonVO> findAll();
+    List<PersonDTO> findAll();
 
-    PersonVO findById(Long id);
+    PersonDTO findById(Long id);
 
-    PersonVO create(PersonVO person);
+    PersonDTO create(PersonDTO person);
     PersonVOV2 createV2(PersonVOV2 person);
 
-    PersonVO update(PersonVO person);
+    PersonDTO update(PersonDTO person);
 
     void delete(Long id);
 

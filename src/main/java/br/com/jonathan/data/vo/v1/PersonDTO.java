@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @JsonPropertyOrder({"id", "firstName", "lastName", "address", "gender"})
-public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -21,10 +21,10 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
     private String address;
     private String gender;
 
-    public PersonVO() {
+    public PersonDTO() {
     }
 
-    public PersonVO(Long id, String firstName, String lastName, String address, String gender) {
+    public PersonDTO(Long id, String firstName, String lastName, String address, String gender) {
         this.key = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -77,12 +77,12 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        PersonVO personVO = (PersonVO) o;
-        return Objects.equals(key, personVO.key)
-                && Objects.equals(firstName, personVO.firstName)
-                && Objects.equals(lastName, personVO.lastName)
-                && Objects.equals(address, personVO.address)
-                && Objects.equals(gender, personVO.gender);
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(key, personDTO.key)
+                && Objects.equals(firstName, personDTO.firstName)
+                && Objects.equals(lastName, personDTO.lastName)
+                && Objects.equals(address, personDTO.address)
+                && Objects.equals(gender, personDTO.gender);
     }
 
     @Override

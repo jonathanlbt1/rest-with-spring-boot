@@ -1,6 +1,6 @@
 package br.com.jonathan.services.impl;
 
-import br.com.jonathan.data.vo.v1.PersonVO;
+import br.com.jonathan.data.vo.v1.PersonDTO;
 import br.com.jonathan.entities.Person;
 import br.com.jonathan.exceptions.ResourceNotFoundException;
 import br.com.jonathan.mapper.PersonMapper;
@@ -39,18 +39,18 @@ class PersonServiceImplTest {
     @Test
     void testThat_FindAll_ReturnRightProperties() {
         // Arrange
-        ArrayList<PersonVO> personVOList = new ArrayList<>();
-        when(personMapper.toPersonList(Mockito.any())).thenReturn(personVOList);
+        ArrayList<PersonDTO> personDTOList = new ArrayList<>();
+        when(personMapper.toPersonList(Mockito.any())).thenReturn(personDTOList);
         when(personRepository.findAll()).thenReturn(new ArrayList<>());
 
         // Act
-        List<PersonVO> actualFindAllResult = personServiceImpl.findAll();
+        List<PersonDTO> actualFindAllResult = personServiceImpl.findAll();
 
         // Assert
         verify(personMapper).toPersonList(isA(List.class));
         verify(personRepository).findAll();
         assertTrue(actualFindAllResult.isEmpty());
-        assertSame(personVOList, actualFindAllResult);
+        assertSame(personDTOList, actualFindAllResult);
     }
 
 
@@ -68,8 +68,8 @@ class PersonServiceImplTest {
     @Test
     void testThat_FindById_ReturnsAPerson() {
         // Arrange
-        PersonVO personVO = new PersonVO();
-        when(personMapper.toPerson(Mockito.any())).thenReturn(personVO);
+        PersonDTO personDTO = new PersonDTO();
+        when(personMapper.toPerson(Mockito.any())).thenReturn(personDTO);
 
         Person person = new Person();
         person.setAddress("42 Main St");
@@ -81,12 +81,12 @@ class PersonServiceImplTest {
         when(personRepository.findById(Mockito.<Long>any())).thenReturn(ofResult);
 
         // Act
-        PersonVO actualFindByIdResult = personServiceImpl.findById(1L);
+        PersonDTO actualFindByIdResult = personServiceImpl.findById(1L);
 
         // Assert
         verify(personMapper).toPerson(isA(Person.class));
         verify(personRepository).findById(eq(1L));
-        assertSame(personVO, actualFindByIdResult);
+        assertSame(personDTO, actualFindByIdResult);
     }
 
 
@@ -132,8 +132,8 @@ class PersonServiceImplTest {
         person.setGender("Gender");
         person.setId(1L);
         person.setLastName("Doe");
-        PersonVO personVO = new PersonVO();
-        when(personMapper.toPerson(Mockito.any())).thenReturn(personVO);
+        PersonDTO personDTO = new PersonDTO();
+        when(personMapper.toPerson(Mockito.any())).thenReturn(personDTO);
         when(personMapper.toPersonVO(Mockito.any())).thenReturn(person);
 
         Person person2 = new Person();
@@ -145,13 +145,13 @@ class PersonServiceImplTest {
         when(personRepository.save(Mockito.any())).thenReturn(person2);
 
         // Act
-        PersonVO actualCreateResult = personServiceImpl.create(new PersonVO());
+        PersonDTO actualCreateResult = personServiceImpl.create(new PersonDTO());
 
         // Assert
         verify(personMapper).toPerson(isA(Person.class));
-        verify(personMapper).toPersonVO(isA(PersonVO.class));
+        verify(personMapper).toPersonVO(isA(PersonDTO.class));
         verify(personRepository).save(isA(Person.class));
-        assertSame(personVO, actualCreateResult);
+        assertSame(personDTO, actualCreateResult);
     }
 
 
@@ -168,8 +168,8 @@ class PersonServiceImplTest {
         when(personRepository.save(Mockito.any())).thenThrow(new ResourceNotFoundException("Person Not Found!"));
 
         // Act and Assert
-        assertThrows(ResourceNotFoundException.class, () -> personServiceImpl.create(new PersonVO()));
-        verify(personMapper).toPersonVO(isA(PersonVO.class));
+        assertThrows(ResourceNotFoundException.class, () -> personServiceImpl.create(new PersonDTO()));
+        verify(personMapper).toPersonVO(isA(PersonDTO.class));
         verify(personRepository).save(isA(Person.class));
     }
 
@@ -177,8 +177,8 @@ class PersonServiceImplTest {
     @Test
     void testThat_Update_UpdatesObject() {
         // Arrange
-        PersonVO personVO = new PersonVO();
-        when(personMapper.toPerson(Mockito.any())).thenReturn(personVO);
+        PersonDTO personDTO = new PersonDTO();
+        when(personMapper.toPerson(Mockito.any())).thenReturn(personDTO);
 
         Person person = new Person();
         person.setAddress("42 Main St");
@@ -198,13 +198,13 @@ class PersonServiceImplTest {
         when(personRepository.findById(Mockito.<Long>any())).thenReturn(ofResult);
 
         // Act
-        PersonVO actualUpdateResult = personServiceImpl.update(new PersonVO());
+        PersonDTO actualUpdateResult = personServiceImpl.update(new PersonDTO());
 
         // Assert
         verify(personMapper).toPerson(isA(Person.class));
         verify(personRepository).findById(isNull());
         verify(personRepository).save(isA(Person.class));
-        assertSame(personVO, actualUpdateResult);
+        assertSame(personDTO, actualUpdateResult);
     }
 
 
@@ -222,7 +222,7 @@ class PersonServiceImplTest {
         when(personRepository.findById(Mockito.<Long>any())).thenReturn(ofResult);
 
         // Act and Assert
-        assertThrows(ResourceNotFoundException.class, () -> personServiceImpl.update(new PersonVO()));
+        assertThrows(ResourceNotFoundException.class, () -> personServiceImpl.update(new PersonDTO()));
         verify(personRepository).findById(isNull());
         verify(personRepository).save(isA(Person.class));
     }

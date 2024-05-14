@@ -1,7 +1,7 @@
 package br.com.jonathan.services.impl;
 
 import br.com.jonathan.controllers.PersonController;
-import br.com.jonathan.data.vo.v1.PersonVO;
+import br.com.jonathan.data.vo.v1.PersonDTO;
 import br.com.jonathan.data.vo.v2.PersonVOV2;
 import br.com.jonathan.exceptions.RequiredObjectIsNullException;
 import br.com.jonathan.exceptions.ResourceNotFoundException;
@@ -33,7 +33,7 @@ public class PersonServiceImpl implements PersonService {
         this.personRepository = personRepository;
     }
 
-    public List<PersonVO> findAll() {
+    public List<PersonDTO> findAll() {
         logger.info("Finding all people!");
         var voList = personMapper.toPersonList(personRepository.findAll());
         voList.forEach(
@@ -41,7 +41,7 @@ public class PersonServiceImpl implements PersonService {
         return voList;
     }
 
-    public PersonVO findById(Long id) {
+    public PersonDTO findById(Long id) {
         logger.info("Finding one person!");
         var entity = personRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(MESSAGE));
@@ -49,7 +49,7 @@ public class PersonServiceImpl implements PersonService {
         return vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
     }
 
-    public PersonVO create(PersonVO person) {
+    public PersonDTO create(PersonDTO person) {
         if (Objects.isNull(person)) {
             throw new RequiredObjectIsNullException();
         }
@@ -70,7 +70,7 @@ public class PersonServiceImpl implements PersonService {
         return personMapper.toPersonV2(personRepository.save(entity));
     }
 
-    public PersonVO update(PersonVO person) {
+    public PersonDTO update(PersonDTO person) {
         if (Objects.isNull(person)) {
             throw new RequiredObjectIsNullException();
         }
