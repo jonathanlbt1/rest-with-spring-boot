@@ -1,6 +1,7 @@
 server:
   port: 8081
-
+cors:
+  originPatterns: http://localhost:8081,https://jonathan.com.br,http://localhost:3000
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

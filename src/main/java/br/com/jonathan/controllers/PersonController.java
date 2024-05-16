@@ -1,7 +1,7 @@
 package br.com.jonathan.controllers;
 
-import br.com.jonathan.data.vo.v1.PersonDTO;
-import br.com.jonathan.data.vo.v2.PersonVOV2;
+import br.com.jonathan.data.dto.v1.PersonDTO;
+import br.com.jonathan.data.dto.v2.PersonVOV2;
 import br.com.jonathan.services.PersonService;
 import br.com.jonathan.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;

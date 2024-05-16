@@ -1,6 +1,6 @@
 package br.com.jonathan.mapper;
 
-import br.com.jonathan.data.vo.v1.BookDTO;
+import br.com.jonathan.data.dto.v1.BookDTO;
 import br.com.jonathan.entities.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

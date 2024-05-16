@@ -1,6 +1,6 @@
 package br.com.jonathan.services;
 
-import br.com.jonathan.data.vo.v1.BookDTO;
+import br.com.jonathan.data.dto.v1.BookDTO;
 
 import java.util.List;
 

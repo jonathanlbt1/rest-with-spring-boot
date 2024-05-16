@@ -1,8 +1,8 @@
 package br.com.jonathan.mapper;
 
 
-import br.com.jonathan.data.vo.v1.PersonDTO;
-import br.com.jonathan.data.vo.v2.PersonVOV2;
+import br.com.jonathan.data.dto.v1.PersonDTO;
+import br.com.jonathan.data.dto.v2.PersonVOV2;
 import br.com.jonathan.entities.Person;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

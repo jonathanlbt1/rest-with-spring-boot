@@ -1,7 +1,7 @@
 package br.com.jonathan.controllers;
 
-import br.com.jonathan.data.vo.v1.BookDTO;
-import br.com.jonathan.data.vo.v1.PersonDTO;
+import br.com.jonathan.data.dto.v1.BookDTO;
+import br.com.jonathan.data.dto.v1.PersonDTO;
 import br.com.jonathan.services.BookService;
 import br.com.jonathan.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,6 +49,7 @@ public class BookController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping(value = "/{id}",
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(summary = "Finds one book by ID",
@@ -67,6 +68,8 @@ public class BookController {
         return service.findById(id);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:8081")
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}

@@ -1,6 +1,6 @@
 package br.com.jonathan.services.impl;
 
-import br.com.jonathan.data.vo.v1.BookDTO;
+import br.com.jonathan.data.dto.v1.BookDTO;
 import br.com.jonathan.entities.Book;
 import br.com.jonathan.exceptions.RequiredObjectIsNullException;
 import br.com.jonathan.exceptions.ResourceNotFoundException;

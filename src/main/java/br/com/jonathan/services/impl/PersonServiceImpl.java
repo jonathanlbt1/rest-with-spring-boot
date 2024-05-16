@@ -1,8 +1,8 @@
 package br.com.jonathan.services.impl;
 
 import br.com.jonathan.controllers.PersonController;
-import br.com.jonathan.data.vo.v1.PersonDTO;
-import br.com.jonathan.data.vo.v2.PersonVOV2;
+import br.com.jonathan.data.dto.v1.PersonDTO;
+import br.com.jonathan.data.dto.v2.PersonVOV2;
 import br.com.jonathan.exceptions.RequiredObjectIsNullException;
 import br.com.jonathan.exceptions.ResourceNotFoundException;
 import br.com.jonathan.mapper.PersonMapper;

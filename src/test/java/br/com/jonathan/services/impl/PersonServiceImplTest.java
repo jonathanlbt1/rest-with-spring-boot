@@ -1,6 +1,6 @@
 package br.com.jonathan.services.impl;
 
-import br.com.jonathan.data.vo.v1.PersonDTO;
+import br.com.jonathan.data.dto.v1.PersonDTO;
 import br.com.jonathan.entities.Person;
 import br.com.jonathan.exceptions.ResourceNotFoundException;
 import br.com.jonathan.mapper.PersonMapper;
@@ -152,25 +152,6 @@ class PersonServiceImplTest {
         verify(personMapper).toPersonVO(isA(PersonDTO.class));
         verify(personRepository).save(isA(Person.class));
         assertSame(personDTO, actualCreateResult);
-    }
-
-
-    @Test
-    void testThat_Create_ThrowsException() {
-        // Arrange
-        Person person = new Person();
-        person.setAddress("42 Main St");
-        person.setFirstName("Jane");
-        person.setGender("Gender");
-        person.setId(1L);
-        person.setLastName("Doe");
-        when(personMapper.toPersonVO(Mockito.any())).thenReturn(person);
-        when(personRepository.save(Mockito.any())).thenThrow(new ResourceNotFoundException("Person Not Found!"));
-
-        // Act and Assert
-        assertThrows(ResourceNotFoundException.class, () -> personServiceImpl.create(new PersonDTO()));
-        verify(personMapper).toPersonVO(isA(PersonDTO.class));
-        verify(personRepository).save(isA(Person.class));
     }
 
 

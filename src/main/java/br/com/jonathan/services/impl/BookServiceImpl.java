@@ -1,7 +1,7 @@
 package br.com.jonathan.services.impl;
 
 import br.com.jonathan.controllers.BookController;
-import br.com.jonathan.data.vo.v1.BookDTO;
+import br.com.jonathan.data.dto.v1.BookDTO;
 import br.com.jonathan.exceptions.RequiredObjectIsNullException;
 import br.com.jonathan.exceptions.ResourceNotFoundException;
 import br.com.jonathan.mapper.BookMapper;
